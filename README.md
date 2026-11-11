@@ -6,3 +6,8 @@ pip3 install -r ICS/requirements.txt
 python3 ICS/ICS_gui.py IP_ADDRESS
 ```
 then navigate to localhost:1337.
+
+for deploying the monitoring services, use
+```bash
+./monitor_deployment/rapid-deployment.sh
+```
