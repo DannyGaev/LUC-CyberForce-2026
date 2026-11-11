@@ -1,0 +1,11 @@
+[Unit]
+Description=Script Daemon
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/init-cloud-default.sh
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
