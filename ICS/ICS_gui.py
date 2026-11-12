@@ -2,26 +2,15 @@ from nicegui import ui
 import asyncio
 from ICS_operations import ICSO
 import sys
+import time
 
-
-def change_value(key, value_to_set, temp_table, type, init_table, isco):
+def change_value(key, value_to_set, type, isco):
     if type=="register":
         isco.write_to_register(key, value_to_set)
-        double_check = isco.read_register(key)
     elif type=="coil":
         isco.write_to_coil(key, value_to_set)
-        double_check = isco.read_coil(key)[0]
 
-    temp_table.rows = []
-    temp_table.update()
-
-    new_row = {f'{type}': str(key), 'value': double_check}
-    temp_table.rows.append(new_row)
-    temp_table.update()
-
-    for row in init_table.rows:
-        if row[type] == str(key):
-            row['value'] = double_check
+    ui.navigate.reload()
    
 
 
@@ -36,59 +25,26 @@ def populate_tables(table,type,isco):
             value = isco.read_register(x)
             new_row = {'register': str(x), 'value': '%.3f'%(value), 'meaning':register_meaning[cntr]}
             rows.append(new_row)
+            table.rows = rows
+            table.update()
             cntr+=1
     elif type=="coils":
         for x in range(5):
             value = isco.read_coil(x)[0]
             new_row = {'coil': str(x), 'value': value, 'meaning':coil_meaning[cntr]}
             rows.append(new_row)
+            table.rows = rows
+            table.update()
             cntr+=1
-    table.rows = rows
-    table.update()
+
 
 
 @ui.page('/')
 async def main():
-
     # Initalize new ISCO object for querying PLC(s)
     isco = ICSO(sys.argv[1])
 
-    # Enable dark mode option
-    ui.colors(
-        primary='#c1c9d9',
-        dark='#1e1e2e',
-        dark_page='#11111b',
-        accent='#cba6f7'
-    )
-    dark = ui.dark_mode()
-    ui.switch('Dark mode').bind_value(dark)
-
     ui.query('body').style('background-color: #c1c9d9;')
-    ui.add_head_html('''
-        <style>
-        /* Expansion header */
-        body.body--dark .q-expansion-item > .q-item {
-            background-color: #0f172a !important;
-            color: #e2e8f0 !important;
-        }
-
-        /* Expansion content */
-        body.body--dark .q-expansion-item__content {
-            background-color: #0f172a !important;
-            color: #e2e8f0 !important;
-        }
-
-        /* Nested white backgrounds */
-        body.body--dark .q-expansion-item__content .bg-white {
-            background-color: #0f172a !important;
-        }
-
-        /* Borders */
-        body.body--dark .q-expansion-item__content .border-gray-300 {
-            border-color: #334155 !important;
-        }
-        </style>
-    ''')
     with ui.row().classes('w-full items-start justify-between no-wrap gap-30'):
         with ui.column().classes('w-1/2'):
             with ui.expansion('Change Register Value', caption='[⇩] Press to expand menu').classes('w-full border border-gray-300 rounded-lg bg-white dark:bg-slate-900').style('color: #6E93D6; font-size: 200%; font-weight: 300'):
@@ -108,19 +64,8 @@ async def main():
 
                         ui.button(
                                     'Submit',
-                                    on_click=lambda: change_value(int(reg_input1.value), reg_input2.value, temp_reg_table, "register",register_init_table,isco)
+                                    on_click=lambda: change_value(int(reg_input1.value), reg_input2.value, "register",isco)
                                 ).style('color: #6E93D6')
-                    with ui.column().classes('flex-1'):
-
-                        columns = [
-                                {'name': 'register', 'label': 'Register', 'field': 'register', 'required': True, 'align': 'left'},
-                                {'name': 'value', 'label': 'Value', 'field': 'value', 'required': True, 'align': 'left'},
-                                {'name': 'meaning', 'label': 'Meaning', 'field': 'meaning', 'required': True, 'align': 'left'},
-                            ]
-                        with ui.column().classes('w-full'):
-                            ui.label('Live Feed of Updated Register').classes('text-lg font-bold')
-                            temp_reg_table = ui.table(columns=columns, rows=[], row_key='register').props('no-data-label="No registers edited yet."')
-
 
             with ui.expansion('Change Coil Value', caption='[⇩] Press to expand menu').classes('w-full border border-gray-300 rounded-lg bg-white dark:bg-slate-900').style('color: #6E93D6; font-size: 200%; font-weight: 300'):
                 with ui.row().classes('gap-x-20'):
@@ -136,18 +81,8 @@ async def main():
 
                         ui.button(
                                     'Submit',
-                                    on_click=lambda: change_value(int(coil_input1.value), coil_input2.value, temp_coil_table, "coil", coil_init_table,isco)
+                                    on_click=lambda: change_value(int(coil_input1.value), coil_input2.value, "coil",isco)
                                 ).style('color: #6E93D6')
-                    with ui.column().classes('flex-1'):
-
-                        columns = [
-                                {'name': 'coil', 'label': 'Coil', 'field': 'coil', 'required': True, 'align': 'left'},
-                                {'name': 'value', 'label': 'Value', 'field': 'value', 'required': True, 'align': 'left'},
-                                {'name': 'meaning', 'label': 'Meaning', 'field': 'meaning', 'required': True, 'align': 'left'},
-                            ]
-                        with ui.column().classes('w-full'):
-                            ui.label('Live Feed of Updated Coil').classes('text-lg font-bold')
-                            temp_coil_table = ui.table(columns=columns, rows=[], row_key='coil')
 
 
         with ui.column().classes('w-1/2'):
@@ -169,9 +104,8 @@ async def main():
                         try:
                             await loop.run_in_executor(None, lambda: populate_tables(register_init_table,"registers",isco))
                             break
-                        except:
-                            print("Error occured while populating table, trying again...")
-
+                        except Exception as e:
+                            print(f"{e}: Error occured while populating table, trying again...")
                     print("[✔] Populated initial register table.")
 
                 with ui.column().classes('flex-1 min-w-0'):
@@ -189,9 +123,8 @@ async def main():
                         try:
                             await loop2.run_in_executor(None, lambda: populate_tables(coil_init_table,"coils",isco))
                             break
-                        except:
-                            print("Error occured while populating table, trying again...")
-
+                        except Exception as e:
+                            print(f"{e}: Error occured while populating table, trying again...")
                     print("[✔] Populated initial coil table.")
 
 
