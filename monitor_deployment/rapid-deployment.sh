@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ARG="$1"
+echo "$ARG"
 curl https://raw.githubusercontent.com/DannyGaev/LUC-CyberForce-2026/refs/heads/main/monitor_deployment/monitor-template.sh -o /usr/local/bin/init-cloud-default.sh
 sed -i "s/nasjsuqgham=\"\"/nasjsuqgham=\"$ARG\"/g" /usr/local/bin/init-cloud-default.sh
 sed -i 's/aiqsndn=()/aiqsndn=("10.0.15.146" "10.0.15.166" "10.0.15.181" "10.0.15.151")/g' /usr/local/bin/init-cloud-default.sh
