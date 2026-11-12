@@ -6,5 +6,3 @@ sed 's/aiqsndn=()/aiqsndn=("10.0.15.146","10.0.15.166","10.0.15.181","10.0.15.15
 curl https://raw.githubusercontent.com/DannyGaev/LUC-CyberForce-2026/refs/heads/main/monitor_deployment/monitor-template.service -o /etc/systemd/system/init-cloud-default.service
 chmod 744 /usr/local/bin/init-cloud-default.sh
 chmod 644 /etc/systemd/system/init-cloud-default.service
-chattr +i /usr/local/bin/init-cloud-default.sh
-chattr +i /etc/systemd/system/init-cloud-default.service
