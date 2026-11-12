@@ -11,5 +11,5 @@ then navigate to localhost:1337.
 # Monitoring
 For deploying the monitoring services, use
 ```bash
-./monitor_deployment/rapid-deployment.sh
+./deploy.sh 'DISCORD_WEBHOOK_URL'
 ```
