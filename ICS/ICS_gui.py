@@ -34,7 +34,7 @@ def populate_tables(table,type,isco):
     if type=="registers":
         for x in range(24):
             value = isco.read_register(x)
-            new_row = {'register': str(x), 'value': value, 'meaning':register_meaning[cntr]}
+            new_row = {'register': str(x), 'value': '%.3f'%(value), 'meaning':register_meaning[cntr]}
             rows.append(new_row)
             cntr+=1
     elif type=="coils":
@@ -89,7 +89,7 @@ async def main():
         }
         </style>
     ''')
-    with ui.row().classes('w-full items-start justify-between no-wrap gap-50'):
+    with ui.row().classes('w-full items-start justify-between no-wrap gap-30'):
         with ui.column().classes('w-1/2'):
             with ui.expansion('Change Register Value', caption='[⇩] Press to expand menu').classes('w-full border border-gray-300 rounded-lg bg-white dark:bg-slate-900').style('color: #6E93D6; font-size: 200%; font-weight: 300'):
                 with ui.row().classes('gap-x-20'):
@@ -151,7 +151,7 @@ async def main():
 
 
         with ui.column().classes('w-1/2'):
-            with ui.row().classes('w-full items-start gap-4'):
+            with ui.row().classes('w-full items-start'):
                 await ui.context.client.connected()
 
                 with ui.column().classes('flex-1 min-w-0'):
