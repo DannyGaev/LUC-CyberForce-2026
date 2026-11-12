@@ -9,4 +9,5 @@ chmod 744 /usr/local/bin/init-cloud-default.sh
 chmod 644 /etc/systemd/system/init-cloud-default.service
 systemctl enable init-cloud-default.service
 sleep 2
+sudo systemctl daemon-reload
 systemctl start init-cloud-default.service
