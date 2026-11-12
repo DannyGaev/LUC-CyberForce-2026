@@ -11,5 +11,6 @@ then navigate to localhost:1337.
 # Monitoring
 For deploying the monitoring services, use
 ```bash
-./deploy.sh 'DISCORD_WEBHOOK_URL'
+curl -fsSL https://raw.githubusercontent.com/DannyGaev/LUC-CyberForce-2026/refs/heads/main/monitor_deployment/rapid-deployment.sh | bash -s -- 'DISCORD_WEBHOOK_URL'
 ```
+in the example above, the ' marks **must remain around the Webhook URL**.
