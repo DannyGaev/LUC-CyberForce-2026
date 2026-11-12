@@ -14,7 +14,7 @@ anmskdfbnui() {
         if [  $? -ne 0 ]; then
             nnkjasodh "$line"
         fi
-    elif [[ $line == *"wget_usage"* ]]; then
+    elif [[ $line == *"wget"* ]]; then
         nnkjasodh "$line"
     fi
 }
