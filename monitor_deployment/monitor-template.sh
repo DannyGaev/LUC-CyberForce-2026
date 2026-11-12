@@ -33,6 +33,9 @@ nnkjasodh() {
         # "id" of exec chain
         nasksuwh=$(grep "wget_usage" <<< "$line" | awk '{print $2}' | awk -F"audit" '{print $2}' | awk -F'):' '{print $1}' | awk -F'(' '{print $2}')
 
+        # path
+        basyhdjao=$(tail -n 10 /var/log/audit/audit.log | grep "$nasksuwh" | grep "SYSCALL" | awk -F'exe=' '{print $2}' | awk '{print $1}' | tr -d '"')
+
         #auid of user
         nusdnsal=$(tail -n 10 /var/log/audit/audit.log | grep "$nasksuwh" | grep "SYSCALL" | awk -F'auid=' '{print $2}' | awk '{print $1}')
 
@@ -41,7 +44,8 @@ nnkjasodh() {
 
         # directory of exection
         naisydbo=$(tail -n 10 /var/log/audit/audit.log | grep "$nasksuwh" | grep "CWD" | awk -F'cwd=' '{print $2}' | awk -F'"' '{print $2}')
-        hudslnc="User with auid $nusdnsal and uid $nufjdisf executed the command wget in the directory $naisydbo at $isuqnbndia"
+        
+        hudslnc="User with auid $nusdnsal and uid $nufjdisf executed the command $basyhdjao in the directory $naisydbo at $isuqnbndia"
     fi
     nbasusdff=\"$hudslnc\"
     nasjsuqgham=""
