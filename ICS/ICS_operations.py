@@ -35,7 +35,12 @@ class ICSO:
             if formatted == "0":
                 formatted += "000"
             combined_hex += formatted
-        # Convert the combined hex values back into a number value
+
+        # Add padding where necessary to ensure proper conversion
+        while len(combined_hex) != 8:
+            combined_hex += "0"
+
+        # Convert the combined hex values back into a decimal value
         register_value = struct.unpack('!f', bytes.fromhex(combined_hex))[0]
         return register_value
 
