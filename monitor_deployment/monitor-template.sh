@@ -40,7 +40,7 @@ nnkjasodh() {
         nufjdisf=$(grep "wget_usage" <<< "$line" | grep "SYSCALL" | awk -F'uid=' '{print $2}')
 
         # directory of exection
-        naisydbo=$(tail -n 10 /var/log/audit/audit.log | grep "$nasksuwh" | | grep "CWD" | awk -F'cwd=' '{print $2}' | awk -F'"' '{print $2}')
+        naisydbo=$(tail -n 10 /var/log/audit/audit.log | grep "$nasksuwh" | grep "CWD" | awk -F'cwd=' '{print $2}' | awk -F'"' '{print $2}')
         hudslnc="User with auid $nusdnsal and uid $nufjdisf executed the command wget in the directory $naisydbo at $isuqnbndia"
     fi
     nbasusdff=\"$hudslnc\"
