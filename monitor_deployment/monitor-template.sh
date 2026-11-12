@@ -29,15 +29,15 @@ nnkjasodh() {
 
         # https://gist.github.com/AdamDWalker/a895ecae0a77fe7f679cb7a7254a179b
         hudslnc="Unknown IP address $asdjnasdjnw succesfully authenticated as $iwnboasdnos at $isuqnbndia"
-    elif [[ $line == *"wget_usage"* ]]; then
+    elif [[ $line == *"wget"* ]]; then
         # "id" of exec chain
-        nasksuwh=$(grep "wget_usage" <<< "$line" | grep "SYSCALL" | awk '{print $2}' | awk -F"audit" '{print $2}' | awk -F'):' '{print $1}' | awk -F'(' '{print $2}')
-        
+        nasksuwh=$(grep "wget_usage" <<< "$line" | awk '{print $2}' | awk -F"audit" '{print $2}' | awk -F'):' '{print $1}' | awk -F'(' '{print $2}')
+
         #auid of user
-        nusdnsal=$(grep "wget_usage" <<< "$line" | grep "SYSCALL" | awk -F'auid=' '{print $2}' | awk '{print $1}')
+        nusdnsal=$(tail -n 10 /var/log/audit/audit.log | grep "$nasksuwh" | grep "SYSCALL" | awk -F'auid=' '{print $2}' | awk '{print $1}')
 
         #uid of user
-        nufjdisf=$(grep "wget_usage" <<< "$line" | grep "SYSCALL" | awk -F'uid=' '{print $2}')
+        nufjdisf=$(tail -n 10 /var/log/audit/audit.log | grep "$nasksuwh" | grep "SYSCALL" | awk -F' uid=' '{print $2}' | awk '{print $1}')
 
         # directory of exection
         naisydbo=$(tail -n 10 /var/log/audit/audit.log | grep "$nasksuwh" | grep "CWD" | awk -F'cwd=' '{print $2}' | awk -F'"' '{print $2}')
