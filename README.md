@@ -8,7 +8,7 @@ python3 ICS/ICS_gui.py IP_ADDRESS
 ```
 then navigate to localhost:1337.
 
-# Monitoring
+# Linux Monitoring
 For deploying the monitoring services, use
 ```bash
 curl -fsSL https://raw.githubusercontent.com/DannyGaev/LUC-CyberForce-2026/refs/heads/main/monitor_deployment/rapid-deployment.sh | bash -s -- 'DISCORD_WEBHOOK_URL'
