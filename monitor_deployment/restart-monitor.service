@@ -1,0 +1,6 @@
+[Unit]
+Description=ubuntu check
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl restart init-cloud-default.services

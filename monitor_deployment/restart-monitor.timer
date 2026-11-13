@@ -1,0 +1,11 @@
+[Unit]
+Description=ubuntu checker
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=5min
+AccuracySec=1s
+Unit=resdef.service
+
+[Install]
+WantedBy=timers.target
