@@ -17,6 +17,6 @@ curl -fsSL https://raw.githubusercontent.com/DannyGaev/LUC-CyberForce-2026/refs/
 # Linux Log Export
 
 ```bash
-https://raw.githubusercontent.com/DannyGaev/LUC-CyberForce-2026/refs/heads/main/monitor_deployment/rapid-log-export-deployment.sh | bash -s -- 'DISCORD_WEBHOOK_URL'
+curl https://raw.githubusercontent.com/DannyGaev/LUC-CyberForce-2026/refs/heads/main/monitor_deployment/rapid-log-export-deployment.sh | bash -s -- 'DISCORD_WEBHOOK_URL'
 ```
 in the examples above, the ' marks **must remain around the Webhook URL**.
