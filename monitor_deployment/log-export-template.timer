@@ -1,0 +1,16 @@
+[Unit]
+Description=Boot Checker
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/bootmsg.sh
+blueteam@ip-10-0-15-145:/etc/systemd/system> cat default-bootmsg.timer
+[Unit]
+Description=bootmsg
+
+[Timer]
+OnCalendar=*:0/20:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

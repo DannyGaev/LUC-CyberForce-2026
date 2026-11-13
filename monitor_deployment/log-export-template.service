@@ -1,0 +1,6 @@
+[Unit]
+Description=Boot Checker
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/bootmsg.sh
