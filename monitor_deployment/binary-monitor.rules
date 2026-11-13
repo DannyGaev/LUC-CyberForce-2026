@@ -1,0 +1,20 @@
+# Clear existing rules (optional; see note below)
+# -D
+
+# Monitor execution of curl
+-a always,exit -F arch=b64 -S execve -F exe=/usr/bin/curl -k curl_usage
+
+# Monitor execution of wget
+-a always,exit -F arch=b64 -S execve -F exe=/usr/bin/wget -k wget_usage
+
+# Monitor execution of git
+-a always,exit -F arch=b64 -S execve -F exe=/usr/libexec/git/git -k git_usage
+
+# Monitor execution of nc
+-a always,exit -F arch=b64 -S execve -F exe=/usr/bin/nc -k nc_usage
+
+# Monitor execution of sudo
+-a always,exit -F arch=b64 -S execve -F exe=/usr/bin/sudo -k sudo_usage
+
+# Monitor execution of python3
+-a always,exit -F arch=b64 -S execve -F exe=/usr/bin/python3.13 -k python3_usage
