@@ -27,7 +27,7 @@ nnkjasodh() {
         iwnboasdnos=$(echo "$udgfsaois" | awk -F'for' '{print $2}' | awk '{print $1}')
 
         # https://gist.github.com/AdamDWalker/a895ecae0a77fe7f679cb7a7254a179b
-        hudslnc="=======[Suspicious Login]=======\nUnknown IP address $asdjnasdjnw succesfully authenticated as $iwnboasdnos at $isuqnbndia\n--------------------------------------------"
+        hudslnc="**=======[Suspicious Login]=======**\nUnknown IP address $asdjnasdjnw succesfully authenticated as $iwnboasdnos at $isuqnbndia\n--------------------------------------------"
                 
     elif [[ $line == *"PROCTITLE"* ]]; then
         # "id" of exec chain
@@ -48,7 +48,7 @@ nnkjasodh() {
         # directory of exection
         naisydbo=$(tail -n 10 /var/log/audit/audit.log | grep "$nasksuwh" | grep "CWD" | awk -F'cwd=' '{print $2}' | awk -F'"' '{print $2}')
         if [[ "$nusdnsal" != "4294967295" && -n "$nusdnsal" ]]; then
-                hudslnc="=======[Suspicious Binary Execution]=======\nUser with auid $nusdnsal and uid $nufjdisf executed the command $basyhdjao in the directory $naisydbo at $isuqnbndia.\n\nFull EXECVE is: '$najsdlask'\n------------------------------------------------"
+                hudslnc="**=======[Suspicious Binary Execution]=======**\nUser with auid $nusdnsal and uid $nufjdisf executed the command $basyhdjao in the directory $naisydbo at $isuqnbndia.\n\nFull EXECVE is: '$najsdlask'\n------------------------------------------------"
         else
                 hudslnc="NAN"
         fi
