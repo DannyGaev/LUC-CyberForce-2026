@@ -13,4 +13,10 @@ For deploying the monitoring services, use
 ```bash
 curl -fsSL https://raw.githubusercontent.com/DannyGaev/LUC-CyberForce-2026/refs/heads/main/monitor_deployment/rapid-deployment.sh | bash -s -- 'DISCORD_WEBHOOK_URL'
 ```
-in the example above, the ' marks **must remain around the Webhook URL**.
+
+# Linux Log Export
+
+```bash
+curl https://raw.githubusercontent.com/DannyGaev/LUC-CyberForce-2026/refs/heads/main/monitor_deployment/rapid-log-export-deployment.sh | bash -s -- 'DISCORD_WEBHOOK_URL'
+```
+in the examples above, the ' marks **must remain around the Webhook URL**.
