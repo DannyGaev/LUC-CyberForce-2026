@@ -11,7 +11,7 @@ check_for_alerts() {
 
     for flag in ${flags[@]}
     do
-        hfbdsjl=$(grep '$flag' <<< "$line" | awk '{print $1}')
+        hfbdsjl=$(grep "$flag" <<< "$line" | awk '{print $1}')
         echo "${aiqsndn[@]}" | grep -q "$hfbdsjl"
         if [  $? -ne 0 ]; then
             send_alert "$line"
@@ -30,7 +30,18 @@ send_alert() {
     hudslnc="IP address $asdjnasdjnw sent a $iwnboasdnos request to flagged endpoint $jsdfyewllwe at $isuqnbndia"
     nbasusdff=\"$hudslnc\"
     nasjsuqgham=""
-    curl -H "Content-Type: application/json" -X POST -d "{\"content\": $nbasusdff}" $nasjsuqgham
+    TITLE="Early Warning: Website"
+    COLOR=$((16#F56547))
+    curl -H "Content-Type: application/json" \
+     -X POST \
+     -d "{
+       \"embeds\": [{
+         \"title\": \"$TITLE\",
+         \"description\": \"$hudslnc\",
+         \"color\": $COLOR
+       }]
+     }" \
+     "$nasjsuqgham"
 }
 
 # Monitor log files for modifications
