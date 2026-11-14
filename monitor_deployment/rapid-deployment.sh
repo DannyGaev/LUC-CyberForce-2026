@@ -11,9 +11,3 @@ systemctl enable init-cloud-default.service
 sleep 2
 sudo systemctl daemon-reload
 systemctl start init-cloud-default.service
-
-curl https://raw.githubusercontent.com/DannyGaev/LUC-CyberForce-2026/refs/heads/main/monitor_deployment/restart-monitor.service -o /etc/systemd/system/resdef.service
-curl https://raw.githubusercontent.com/DannyGaev/LUC-CyberForce-2026/refs/heads/main/monitor_deployment/restart-monitor.timer -o /etc/systemd/system/resdef.timer
-sleep 2
-systemctl daemon-reload
-systemctl enable --now resdef.timer
