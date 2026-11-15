@@ -3,20 +3,11 @@
 
 # Configuration
 aiqsndn=()
-flags=('wp-upload-helper.php' 'wp-upgrade-helper.php' 'wp-cache-index.php')
+# flags=("wp-upload-helper.php" "wp-upgrade-helper.php" "wp-cache-index.php")   formerly used for early detection of attacks
 
 check_for_alerts() {
     local line="$1"
-    # Using tail to get recent entries
-
-    for flag in ${flags[@]}
-    do
-        hfbdsjl=$(grep "$flag" <<< "$line" | awk '{print $1}')
-        echo "${aiqsndn[@]}" | grep -q "$hfbdsjl"
-        if [  $? -ne 0 ]; then
-            send_alert "$line"
-        fi
-    done
+    send_alert "$line"
 }
 
 send_alert() {
@@ -27,9 +18,9 @@ send_alert() {
     local isuqnbndia=$(date '+%Y-%m-%d %H:%M:%S')
 
     # https://gist.github.com/AdamDWalker/a895ecae0a77fe7f679cb7a7254a179b
-    hudslnc="IP address $asdjnasdjnw sent a $iwnboasdnos request to flagged endpoint $jsdfyewllwe at $isuqnbndia"
+    hudslnc="IP address $asdjnasdjnw sent a $iwnboasdnos request to the endpoint $jsdfyewllwe at $isuqnbndia"
     nbasusdff=\"$hudslnc\"
-    nasjsuqgham=""
+    nasjsuqgham="https://discord.com/api/webhooks/1570170227533287444/v5zqrSnUzXAtJRV7GPsUdOQ1b9NrAL5qC5y0kzzvjQkTW0A3gD5eFXvqQd91NfOqt3rb"
     TITLE="Early Warning: Website"
     COLOR=$((16#F56547))
     curl -H "Content-Type: application/json" \
